@@ -19,7 +19,10 @@ all: $(FNAME)
 # missing file reference and interactively asking you for an alternative.
 
 $(FNAME): main.tex
-	latexmk -pdf -jobname=$(FNAME) -pdflatex="pdflatex -interactive=nonstopmode" -use-make main.tex
+	latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" -use-make main.tex
+	mv main.pdf $(FNAME).pdf
 
 clean:
 	latexmk -C
+	rm -f $(FNAME).pdf
+
