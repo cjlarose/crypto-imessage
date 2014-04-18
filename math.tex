@@ -1,0 +1,30 @@
+Inline math looks like $y=f(x)$, and displayed math looks like
+\[
+\phi(n)=\left|\{x\in\ZZ^+\mid x\leq n\text{ and }\gcd(x,n)=1\}\right|.
+\]
+Here's a matrix in square brackets:
+\[
+A=\begin{bmatrix}a&b\\c&d\end{bmatrix}
+\]
+Here's a matrix in round braces:
+\[
+A=\begin{pmatrix}a&b\\c&d\end{pmatrix}
+\]
+Want to right-align your entries (because you're OCD like me)?
+\[
+A=\begin{bmatrix*}[r]-a&b\\c&-d\end{bmatrix*}\quad\text{versus}\quad A=\begin{bmatrix}-a&b\\c&-d\end{bmatrix}
+\]
+This also works for matrices with round braces.
+
+Need to define a function piecewise? No problemo.
+\[
+\delta_{ij}=
+\begin{cases}
+1& \text{when } i=j\\
+0& \text{when } i\neq j
+\end{cases}
+\]
+
+There are many many more commands which render beautiful mathematics. If you want to look up the symbol by drawing it, check out Detexify at \url{http://detexify.kirelabs.org/classify.html}.
+
+

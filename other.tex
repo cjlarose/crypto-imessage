@@ -1,0 +1,58 @@
+This section is broken up into two subsections.
+
+\subsection{Fonts, etc.}
+
+You can \textbf{bold} some text and \textit{italicize} others. Or, you can \underline{underline}, if that's your thing. If you want to enclose words in quotes, the left-hand quotes are obtained with the key located to the left of the number 1 on your keyboard. ``See what I mean?" It's also common to want a \texttt{typewriter} font; for example, when including code input/output. Another way to do this is by using the `verbatim' environment.
+
+\begin{verbatim}
+This
+ environment
+  speaks
+   for
+    itself.
+Commands in math mode are not compiled! $x=\pm 1$.
+\end{verbatim}
+
+There are a handful of reserved characters; in order to include them, you must be careful to include a backslash:
+\# \$ \% \^{} \& \_ \{ \} \~{} \textbackslash
+% Notice the empty braces following ^ and ~. Try removing them to see why they are needed.
+
+\subsection{Everything else}
+
+Want to insert a figure (which could be an image)?
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.3\textwidth]{tacocat.jpg}
+\end{center}
+\caption{Don't you want to dress your cat up like a taco now?}
+\end{figure}
+% Since compiling is cloud-based, you must upload the image file to the ShareLaTeX server before compiling. Click on the +New link in the top left-hand corner of this browser.
+
+\LaTeX\ has the ability to reference just about anything with a label. For example, I forgot to include the quadratic formula in Section \ref{sec:math}, so here it is in \eqref{eq:quad} below. You can also reference items in your bibliography. For example, I already included your text \cite{text}. (Also notice that these become hyperlinks in the output file!)
+
+\begin{equation}\label{eq:quad}
+x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+\end{equation}
+
+You might want to include an enumerated list...
+\begin{enumerate}
+\item First point
+\begin{enumerate}
+\item First sub-point
+\item Second sub-point
+\end{enumerate}
+\item Second point
+\end{enumerate}
+...or perhaps a list which is not enumerated...
+\begin{itemize}
+\item Something
+\item Something else
+\end{itemize}
+There are lots of ways to customize lists in \LaTeX. See \url{http://en.wikibooks.org/wiki/LaTeX/List_Structures} for details.
+
+\begin{center}
+\fbox{Do you have any other questions? Please let me know!}
+\end{center}
+
+

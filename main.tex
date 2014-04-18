@@ -1,0 +1,43 @@
+\documentclass[11pt,titlepage,]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage[abbrev,msc-links]{amsrefs}
+\usepackage{fullpage}
+
+\parindent 0em
+\parskip 1em
+
+\newcommand\inputfile[1]{
+        \InputIfFileExists{#1}{}{\typeout{No file #1.}}%
+}
+
+% This is how you define your own macros.
+\newcommand{\ZZ}{\mathbb{Z}}
+
+\title{Your Catchy Title Goes Here}
+\author{Julius C\ae sar, Mother Theresa, and Bob Hope}
+\date{Introduction to Cryptography\\University of Arizona\\Spring 2014}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction} % asterisk causes section to be unnumbered
+\inputfile{intro.tex}
+
+\section{Mathematics}\label{sec:math}
+\inputfile{math.tex}
+
+\section{Other Stuff}
+\inputfile{other.tex}
+
+\newpage
+\inputfile{bib.tex}
+
+\end{document}
+
