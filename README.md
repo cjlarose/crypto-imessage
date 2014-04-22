@@ -1,3 +1,6 @@
+NEW!  A useful [link][3] I found.  
+
+
 Topics
 ======
 
@@ -24,3 +27,4 @@ Outline
 
 [1]: http://appleinsider.com/articles/13/01/23/apple-sees-2b-imessages-sent-every-day-from-half-a-billion-ios-devices
 [2]: http://techcrunch.com/2014/02/27/apple-explains-exactly-how-secure-imessage-really-is/
+[3]: http://blog.quarkslab.com/imessage-privacy.html
