@@ -1,0 +1,108 @@
+\subsection{Elliptic Curve Theory}
+
+Elliptic curves are complicated geometric and algebraic objects,
+whose full explanation lies outside the scope of this paper.
+The purpose of this section is to prove a vague understanding
+of why elliptic curve cryptography might be secure, so that the reader
+can have a top level understanding of how the iMessage protocol
+works, and is secure.\\
+
+An elliptic curve is an equation in the form $y^2 = x^3 + ax^2 + bx + c$.
+
+When working with elliptic curves, it is often most useful to describe the curve as a set
+$$\{(x,y) \vert x,y \in K, y^2 = x^3 + ax^2 + bx + c\}$$, where $K$ is an set such as
+$\mathbb{Q}, \mathbb{R}, \mathbb{Z} \mod p$, where $p$ is prime.
+
+The elliptic curves with cryptographic applications are ones where $K$ is the integers
+mod a prime $p$, denoted $\mathbb{F}_p$.
+
+\begin{example}
+Consider the elliptic curve $E = y^2 = x^3+2x-1 \mod 5$.
+
+Using the set notation, we can describe this curve as
+$E = \{(0 ,2 ),(0,3),(2,1),(2 ,4 ),(4,1),(4,4), \infty\}$.
+\end{example}
+
+We include a point at
+"$\infty$", which serves as the identity under point addition.
+Conceptually, we think of as lines through $\infty$
+as vertical lines.
+
+
+
+
+\subsubsection{Adding Points of an Elliptic Curve}
+Suppose we want to add points $P_1$ and $P_2$.
+
+The following algorithm serves as addition on elliptic curve points.
+\begin{center}
+\begin{verbatim}
+Given an elliptic curve E with points P1 and P2
+if P1 == P2:
+    let L be the line tangent to E intersecting P1
+else:
+    let L be the line through both P1 and P2
+Let R =/= P1,P2 be the thrid point that L intersects on E
+Suppose R = (rx, ry)
+Then P1 + P2 = (rx, -ry)
+\end{verbatim}
+\end{center}
+
+The existence of such a point $R$ is given by the properties of elliptic curves,
+so this operation is well defined.
+
+As mentioned previously, there is an $\infty$ point that serves as the additive identity.
+
+Consider $(x,y) + \infty$.
+The line through $(x,y)$ and $\infty$ will be completely vertical.
+So the point of intersection (labeled $R$ in the algorithm) will be $(x,-y)$.
+Then, following the algorithm, we get that $(x,y) + \infty = (x,y)$.
+
+
+
+
+\subsection{The Discrete Logarithm Problem}
+
+\subsubsection{The classic Discrete Log Problem}
+A variant of the discrete logarithm problem is the foundation of elliptic
+curve cryptography.  The classic discrete logarithm problem is a follows:\\
+
+Consider an arbitrary group $(G, *)$ and suppose $b,g \in G$.
+
+The discrete logarithm problem is to find an integer $k$
+such that $b^k = g$.
+
+Finding such a $k$ is computationally difficult; yet
+With $k$ known, it is very simple to compute $b^k$.
+
+Since exponentiation is the easy part of an invertible function, with
+the logarithm being difficult to compute, this problem has cryptographic
+applications.
+
+
+\subsubsection{The Discrete Logarithm Problem for Elliptic Curves}
+
+Consider an elliptic curve $E$ with points $A,B$.
+
+The elliptic curve discrete Logarithm problem to find $k$
+such that $B = kA$.
+
+Analogous to the classic discrete logarithm problem, finding such a $k$
+is computationally difficult, but computing $B$ is relatively simple.
+
+The discrete logarithm problem for elliptic curves is the foundation of
+elliptic curve cryptography.
+
+
+
+\subsection{DSA with Elliptic Curves}
+
+
+
+
+
+
+
+
+
+
