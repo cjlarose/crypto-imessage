@@ -10,8 +10,13 @@ works, and is secure.\\
 An elliptic curve is an equation in the form $y^2 = x^3 + ax^2 + bx + c$.
 
 When working with elliptic curves, it is often most useful to describe the curve as a set
-$$\{(x,y) \vert x,y \in K, y^2 = x^3 + ax^2 + bx + c\}$$, where $K$ is an set such as
+$$\{(x,y) \vert x,y \in K, y^2 = x^3 + ax^2 + bx + c\} \cup \{ \infty \}$$, where $K$ is a set such as
 $\mathbb{Q}, \mathbb{R}, \mathbb{Z} \mod p$, where $p$ is prime.
+
+We include a point at
+$\infty$, which serves as the identity under point addition.
+Conceptually, we think of as lines through $\infty$
+as vertical lines.
 
 The elliptic curves with cryptographic applications are ones where $K$ is the integers
 mod a prime $p$, denoted $\mathbb{F}_p$.
@@ -22,11 +27,6 @@ Consider the elliptic curve $E = y^2 = x^3+2x-1 \mod 5$.
 Using the set notation, we can describe this curve as
 $E = \{(0 ,2 ),(0,3),(2,1),(2 ,4 ),(4,1),(4,4), \infty\}$.
 \end{example}
-
-We include a point at
-"$\infty$", which serves as the identity under point addition.
-Conceptually, we think of as lines through $\infty$
-as vertical lines.
 
 
 
@@ -42,7 +42,7 @@ if P1 == P2:
     let L be the line tangent to E intersecting P1
 else:
     let L be the line through both P1 and P2
-Let R =/= P1,P2 be the thrid point that L intersects on E
+Let R =/= P1,P2 be the third point that L intersects on E
 Suppose R = (rx, ry)
 Then P1 + P2 = (rx, -ry)
 \end{verbatim}
@@ -96,6 +96,8 @@ elliptic curve cryptography.
 
 
 \subsection{DSA with Elliptic Curves}
+
+
 
 
 
