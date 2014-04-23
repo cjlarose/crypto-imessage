@@ -3,6 +3,12 @@ features present in every iOS device.
 
 \subsection{AES Coprocessor}
 % AES 256 engine, SHA-1 in hardware
+At the core of Apple's security architecture is a hardware decive referred to
+as the Crypto Engine or the AES Coprocessor. During the manufacturing process,
+two 256-bit AES Keys are burned into the coprocessor. The first is a Unique ID
+(UID), which, as its name implies, is unique to every iOS device. Apple states
+that the UID is not recorded by Apple or any of its suppliers\cite{apple}.
+
 % UID, GID
 % Derived keys
 
