@@ -24,7 +24,7 @@ itself helps the keys from being accessed from outside of the Crypto Engine.
 Psuedorandom number generation plays an important role in many cryptographic
 operations, such as saltas generated for use in ECDSA. iOS devices use have
 random number generator (RNG) that uses an algorithm based on Counter mode
-Deterministic Random Byte Generator (CTR_DRBG).  CTR_DRBG is one of four
+Deterministic Random Byte Generator (CTR\_DRBG).  CTR\_DRBG is one of four
 cryptographically secure pseudorandom number generators published by the
 National Institute of Standards and Technology in NIST SP
 800-90A\cite{nistsp80090a}.
@@ -32,12 +32,12 @@ National Institute of Standards and Technology in NIST SP
 CSPRNGs generally fall into three classes: those based on cryptographic
 primitives (ciphers and hashes), those of number theorethic designs (like Blum
 Blum Shub), and those of special-purpose designs. Of the four CSPRNGs of NIST
-SP 800-90A, three are of the type based on cryptographic primitives: Hash_DRBG
-(based on hash functions), HMAC_DRBG (based on hash-based message
-authentication code), and CTR_DRBG (based on block ciphers). The fourth CSPRNG
-in 800-90A is Dual_EC_DRBG, which is based on elliptic curve cryptography. It
+SP 800-90A, three are of the type based on cryptographic primitives: Hash\_DRBG
+(based on hash functions), HMAC\_DRBG (based on hash-based message
+authentication code), and CTR\_DRBG (based on block ciphers). The fourth CSPRNG
+in 800-90A is Dual\_EC\_DRBG, which is based on elliptic curve cryptography. It
 was later reported to likely contain a backboor inserted by the National
-Security Agency\cite{goodin}. The other RNGs, including CTR_DRBG, however, are
+Security Agency\cite{goodin}. The other RNGs, including CTR\_DRBG, however, are
 still considered to be secure.
 
 \subsection{Effaceable Storage}
