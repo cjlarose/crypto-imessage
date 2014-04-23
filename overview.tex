@@ -7,7 +7,7 @@ The second step is actually sending the iMessage which begins by adding recipien
 The message itself is encrypted using the Advanced Encryption Standard algorithm, or AES, in Counter (CTR) mode.  AES was standardized in 2001 for the specific purpose of encrypting electronic data and, in contrast to RSA and ECDSA, is part of the category of symmetric key cryptography.  This means that the same key can be used to both encrypt and decrypt the message.  One caveat of AES is that it is a block cipher and so can only be used to encrypt blocks of, in this case, 128-bits.  With each character being represented with 8-bits this means AES can be used to encrypt only 16 characters at a time!  A mode of operation is used to securely encrypt many blocks of data using a single block encryption algorithm.  Apple uses AES in CTR mode which means that each block is fed a number, or initialization vector, at encryption time.  The next block to be encrypted is fed the initialization vector plus one.  This continues with every block being fed the incremented counter used in the previous block.  The following graphic demonstrates the CTR mode encryption.
 
 \begin{center}
-    \includegraphics[width=0.3\textwidth]{ctr.jpg}
+    \includegraphics[width=0.75\textwidth]{ctr.jpg}
 \end{center}
 
     Interestingly, the data that is encrypted is not actually the plaintext but it is the counter and the key.  The output of this encryption is then "added" to the plaintext in an XOR operation to produce a block of ciphertext.  This process allows the entire message to be securely encrypted but this ends up being not enough security.
