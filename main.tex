@@ -1,5 +1,5 @@
 \documentclass[11pt,titlepage,]{article}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amssymb, amsthm}
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{mathtools}
@@ -15,6 +15,11 @@
 \newcommand\inputfile[1]{
         \InputIfFileExists{#1}{}{\typeout{No file #1.}}%
 }
+
+
+\newtheoremstyle{indenteddefinition}{.5\topsep}{.5\topsep}{\addtolength{\leftskip}{2.5em}}{-2.5em}{\bfseries}{}{\newline}{}
+\theoremstyle{indenteddefinition}
+\newtheorem{example}{Example}[section]
 
 % This is how you define your own macros.
 \newcommand{\ZZ}{\mathbb{Z}}
