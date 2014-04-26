@@ -1,22 +1,36 @@
 The cryptographic strength of iMessage relies in part on a number of security
 features present in every iOS device. Cryptographic algorithms are often
-complex and can present significant performance and battery life implications.
-These priorities drive the architecture of iOS device security to help make
-implementations of cryptographic algorithms fast and safe.
+complex and can present significant implications in performance and battery
+life.  These priorities drive the architecture of iOS device security to help
+make implementations of cryptographic algorithms fast and safe.
 
 \subsection{AES Coprocessor}
 % AES 256 engine, SHA-1 in hardware
-At the core of Apple's security architecture is a hardware decive referred to
+At the core of Apple's security architecture is a hardware device referred to
 as the Crypto Engine or the AES Coprocessor. During the manufacturing process,
 two 256-bit AES Keys are burned into the coprocessor. The first is the unique
 ID (UID), which, as its name implies, is unique to every iOS device. Apple
 states that the UID is not recorded by Apple or any of its
 suppliers\cite{apple}. The second key is a device group ID (GID), which is
 shared by all iOS devices of the same class (all devices with an Apply A7
-processor share the same GID, for example). Burning these keys into the silicon
-itself helps the keys from being accessed from outside of the Crypto Engine.
-% UID, GID
-% Derived keys
+processor share the same GID, for example).
+
+The GID key is used to decrypt firmware images. This means that Apple can
+update low-level pieces of the device architecture (like the bootloader or
+kernel) securely, providing safety for end users when installing these updates.
+
+The UID is used to generate a number of other AES keys (called \textit{derived
+keys} by enciphering some hardcoded values with the UID at boot time. For
+example, \texttt{0x01010101010101010101010101010101} is enciphered using the
+UID as a key to produce a File Data Protection key. This derived key used to
+decrypt file metadata, which contains another file-specific key, which is
+ultimately used to decrypt a file. Further details on this scheme, however, lie
+outside of the scope of this paper.
+
+Burning the UID and GID keys into the silicon itself helps the keys from being
+accessed from outside of the Crypto Engine. Essentially, the coprocessor is
+used to provide the output of cryptographic operations without exposing the
+keys themselves.
 
 \subsection{Random Number Generation}
 % CTR_DRBG
@@ -39,6 +53,17 @@ in 800-90A is Dual\_EC\_DRBG, is of the number theoretic class is based on
 elliptic curve cryptography. It was later reported to likely contain a backdoor
 inserted by the National Security Agency\cite{goodin}. The other RNGs,
 including CTR\_DRBG, however, are still considered to be secure.
+
+CTR\_DRBG is based on running a block cipher in counter
+mode\cite{nistsp80090a}. Apple does not specify which block cipher is used in
+their implementation, but NIST specifies that CTR\_DRBG be used only with an
+\textit{approved} cipher. Currently, NIST approves only AES, Triple DES, and
+Skipjack for these purposes\cite{nistblockciphers}, so it is presumed that
+Apple uses one of these. CTR\_DRBG is initialized with a random key and input
+data and encrypts the data with the provided cipher and key in counter mode,
+returing the enciphered bytes. In iOS devices, the CTR\_DRBG is seeded and
+reseeded with information gathered from ``interrupt timing during boot, and
+additionally from internal sensors once the device has booted\cite{apple}.
 
 \subsection{Effaceable Storage}
 % Sucurity implications of flash storage
