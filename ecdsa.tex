@@ -35,18 +35,22 @@ $E = \{(0 ,2 ),(0,3),(2,1),(2 ,4 ),(4,1),(4,4), \infty\}$.
 Suppose we want to add points $P_1$ and $P_2$.
 
 The following algorithm serves as addition on elliptic curve points.
-\begin{center}
-\begin{verbatim}
-Given an elliptic curve E with points P1 and P2
-if P1 == P2:
-    let L be the line tangent to E intersecting P1
-else:
-    let L be the line through both P1 and P2
-Let R =/= P1,P2 be the third point that L intersects on E
-Suppose R = (rx, ry)
-Then P1 + P2 = (rx, -ry)
-\end{verbatim}
-\end{center}
+\begin{algorithm}
+    \begin{algorithmic}
+         \Procedure{(+)}{$P_1,P_2$}
+         \If{$P_1 == P_2$}
+         \State $L \gets$ the line tangent to $E$ intersecting $P_1$
+         \Else
+         \State $L \gets$ the line through both $P_1$ and $P_2$
+         \EndIf
+         \State $R \gets$ the intersection of $L$ and $E$, $R \neq P_1, P_2$
+         \State Suppose $R = (r_x, r_y)$
+         \State \textbf{return} $(r_x, -r_y)$
+         \EndProcedure
+     \end{algorithmic}
+     \caption{Adding $P_1$ and $P_2$ on an elliptic curve $E$}
+     \label{euclid}
+ \end{algorithm}
 
 The existence of such a point $R$ is given by the properties of elliptic curves,
 so this operation is well defined.
