@@ -24,7 +24,7 @@ $(FNAME): sortbib main.tex
 
 sortbib:
 	head -n 1 bib.tex > newbib.tex
-	sed -n -e :a -e '1,1!{P;N;D;};N;ba' bib.tex | tail -n +2 | sort -f -k 2 >> newbib.tex
+	sed -n -e :a -e '1,1!{P;N;D;};N;ba' bib.tex | tail -n +2 | sort -d -f -k 2 >> newbib.tex
 	tail -n 1 bib.tex >> newbib.tex
 	mv newbib.tex bib.tex
 
