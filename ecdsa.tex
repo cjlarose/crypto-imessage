@@ -1,3 +1,26 @@
+Cryptographic signatures are used to prove the validitiy of an ecrypted message.
+Suppose Alice wants to send an encrypted message to Bob, but Eve wants to intercept
+or obfuscate such a message.  Alice could use an ecryption algorithm such as AES,
+then send the message to Bob.  However, it is entirely possible that Eve intercepts
+the encrypted message while it is en route to Bob.  While it would be computationally
+difficult for Eve to crack the encrypted message, Eve could alter the encrypted message
+such that Bob would not be able to unencrypt the message. Furthermore, Eve could get lucky
+and somehow obtain the AES key used by Alice and Bob. In both of these cases, Alice and Bob
+would benefit form using some form of digitial signature method.  Digital signatures
+are used to prove the authenticity and validity of a message.  In general, this is done by
+signing the hash of a message, and sending this signed hash together with and encrypted message.
+The hash of the message ensures that the message has not been
+tampred with.  The fact that the hash is signed ensures that the the message is in fact coming
+from the person who signed the message, and no one else.
+
+DSA, the Digital Signature Algorithm, is a common method of signing messages.
+The structure of DSA has been augemented to take advantage of the
+computationally difficult aspect of pointwise addition and scalar multiplication
+on elliptic curves.  In this section, we will explain the multiplication
+and additiona for elliptic curves, why this would be difficult to reverse,
+and finally describe the actual ECDSA algorithm.
+
+
 \subsection{Elliptic Curve Theory}
 
 Elliptic curves are complicated geometric and algebraic objects,
@@ -35,18 +58,22 @@ $E = \{(0 ,2 ),(0,3),(2,1),(2 ,4 ),(4,1),(4,4), \infty\}$.
 Suppose we want to add points $P_1$ and $P_2$.
 
 The following algorithm serves as addition on elliptic curve points.
-\begin{center}
-\begin{verbatim}
-Given an elliptic curve E with points P1 and P2
-if P1 == P2:
-    let L be the line tangent to E intersecting P1
-else:
-    let L be the line through both P1 and P2
-Let R =/= P1,P2 be the third point that L intersects on E
-Suppose R = (rx, ry)
-Then P1 + P2 = (rx, -ry)
-\end{verbatim}
-\end{center}
+\begin{algorithm}
+    \begin{algorithmic}
+         \Procedure{(+)}{$P_1,P_2$}
+         \If{$P_1 == P_2$}
+         \State $L \gets$ the line tangent to $E$ intersecting $P_1$
+         \Else
+         \State $L \gets$ the line through both $P_1$ and $P_2$
+         \EndIf
+         \State $R \gets$ the intersection of $L$ and $E$, $R \neq P_1, P_2$
+         \State Suppose $R = (r_x, r_y)$
+         \State \textbf{return} $(r_x, -r_y)$
+         \EndProcedure
+     \end{algorithmic}
+     \caption{Adding $P_1$ and $P_2$ on an elliptic curve $E$}
+     \label{euclid}
+ \end{algorithm}
 
 The existence of such a point $R$ is given by the properties of elliptic curves,
 so this operation is well defined.
@@ -93,18 +120,4 @@ is computationally difficult, but computing $B$ is relatively simple.
 The discrete logarithm problem for elliptic curves is the foundation of
 elliptic curve cryptography.
 
-
-
 \subsection{DSA with Elliptic Curves}
-
-
-
-
-
-
-
-
-
-
-
-
