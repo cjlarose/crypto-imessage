@@ -1,3 +1,26 @@
+Cryptographic signatures are used to prove the validitiy of an ecrypted message.
+Suppose Alice wants to send an encrypted message to Bob, but Eve wants to intercept
+or obfuscate such a message.  Alice could use an ecryption algorithm such as AES,
+then send the message to Bob.  However, it is entirely possible that Eve intercepts
+the encrypted message while it is en route to Bob.  While it would be computationally
+difficult for Eve to crack the encrypted message, Eve could alter the encrypted message
+such that Bob would not be able to unencrypt the message. Furthermore, Eve could get lucky
+and somehow obtain the AES key used by Alice and Bob. In both of these cases, Alice and Bob
+would benefit form using some form of digitial signature method.  Digital signatures
+are used to prove the authenticity and validity of a message.  In general, this is done by
+signing the hash of a message, and sending this signed hash together with and encrypted message.
+The hash of the message ensures that the message has not been
+tampred with.  The fact that the hash is signed ensures that the the message is in fact coming
+from the person who signed the message, and no one else.
+
+DSA, the Digital Signature Algorithm, is a common method of signing messages.
+The structure of DSA has been augemented to take advantage of the
+computationally difficult aspect of pointwise addition and scalar multiplication
+on elliptic curves.  In this section, we will explain the multiplication
+and additiona for elliptic curves, why this would be difficult to reverse,
+and finally describe the actual ECDSA algorithm.
+
+
 \subsection{Elliptic Curve Theory}
 
 Elliptic curves are complicated geometric and algebraic objects,
@@ -97,18 +120,4 @@ is computationally difficult, but computing $B$ is relatively simple.
 The discrete logarithm problem for elliptic curves is the foundation of
 elliptic curve cryptography.
 
-
-
 \subsection{DSA with Elliptic Curves}
-
-
-
-
-
-
-
-
-
-
-
-
