@@ -18,9 +18,16 @@ all: $(FNAME)
 # -interactive=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
 
-$(FNAME): main.tex
+$(FNAME): sortBib main.tex
 	latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" -use-make main.tex
 	mv main.pdf $(FNAME).pdf
+
+sortBib:
+	head -n 1 bib.tex > newbib.tex
+	head -n -1 bib.tex | tail -n +2 | sort -f -k 2 >> newbib.tex
+	tail -n 1 bib.tex >> newbib.tex
+	mv newbib.tex bib.tex
+
 
 clean:
 	latexmk -C
