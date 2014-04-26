@@ -20,7 +20,7 @@ update low-level pieces of the device architecture (like the bootloader or
 kernel) securely, providing safety for end users when installing these updates.
 
 The UID is used to generate a number of other AES keys (called \textit{derived
-keys} by enciphering some hardcoded values with the UID at boot time. For
+keys}) by enciphering some hardcoded values with the UID at boot time. For
 example, \texttt{0x01010101010101010101010101010101} is enciphered using the
 UID as a key to produce a File Data Protection key. This derived key used to
 decrypt file metadata, which contains another file-specific key, which is
@@ -36,11 +36,11 @@ keys themselves.
 % CTR_DRBG
 % System entropy from hardware
 Pseudorandom number generation plays an important role in many cryptographic
-operations, such as saltas generated for use in ECDSA. iOS devices use have
-random number generator (RNG) that uses an algorithm based on Counter mode
-Deterministic Random Byte Generator (CTR\_DRBG).  CTR\_DRBG is one of four
-cryptographically secure pseudorandom number generators published by the
-National Institute of Standards and Technology in NIST SP
+operations, such as salts generated for use in ECDSA (discussed later). iOS
+devices use a random number generator (RNG) that uses an algorithm based on
+Counter mode Deterministic Random Byte Generator (CTR\_DRBG).  CTR\_DRBG is one
+of four cryptographically secure pseudorandom number generators published by
+the National Institute of Standards and Technology in NIST SP
 800-90A\cite{nistsp80090a}.
 
 CSPRNGs generally fall into three classes: those based on cryptographic
@@ -49,7 +49,7 @@ Blum Shub), and those of special-purpose designs. Of the four CSPRNGs of NIST
 SP 800-90A, three are of the type based on cryptographic primitives: Hash\_DRBG
 (based on hash functions), HMAC\_DRBG (based on hash-based message
 authentication code), and CTR\_DRBG (based on block ciphers). The fourth CSPRNG
-in 800-90A is Dual\_EC\_DRBG, is of the number theoretic class is based on
+in 800-90A is Dual\_EC\_DRBG, is of the number theoretic class and is based on
 elliptic curve cryptography. It was later reported to likely contain a backdoor
 inserted by the National Security Agency\cite{goodin}. The other RNGs,
 including CTR\_DRBG, however, are still considered to be secure.
@@ -63,7 +63,30 @@ Apple uses one of these. CTR\_DRBG is initialized with a random key and input
 data and encrypts the data with the provided cipher and key in counter mode,
 returing the enciphered bytes. In iOS devices, the CTR\_DRBG is seeded and
 reseeded with information gathered from ``interrupt timing during boot, and
-additionally from internal sensors once the device has booted\cite{apple}.
+additionally from internal sensors once the device has booted''\cite{apple}.
 
 \subsection{Effaceable Storage}
 % Sucurity implications of flash storage
+Generating keys securely is just one half of the equation: it is also important
+to make sure that keys are ultimately destroyed from storage. iOS devices use
+flash storage, a type of non-volatile storage. Flash storage provides a number
+of benefits iOS devices because drives start up almost instantaneously, can
+handle higher temperatures than traditional hard disks, and there are no moving
+parts. There are, however, some drawbacks for using flash storage for
+cryptographic purposes. Bytes can be individually read or writen to in with
+random access, but they can only be erased (set back to 1s) one ``block'' a
+time. This means that to erased cryptographic keys from storage, one has to
+erase the entire block in which it resides. Fundamentally, this is exactly how
+iOS erases keys.
+
+Effaceable Storage is a single small portion of the device's NAND flash storage
+used specifically for the storage of cryptographic keys. When the device is
+powered off, keys in this segment of storage are wiped. This means that even if
+an attacker has physical access to the device after it's been turned off, the
+data on the device would be undecipherable\cite{garfinkel}. This mechanism
+provides great security for end users in case their device falls into the hands
+of an attacker. It also has the effect, as Garfinkel notes, of empowering
+criminals. The data stored on iOS devices is so secure that even forensic
+investigators trying to access data on a suspect's device often have no way to
+access it outside of brute-forcing keys, which, for AES-256, is practically
+impossible.
