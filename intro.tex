@@ -1,1 +1,19 @@
-Every day millions of text messages are sent around the world.  The senders of these messages would like to think that the messages they send will be read only by their intended recipient but just how secure are these messages really?  The speed and power of the modern computer has birthed a new necessity for powerful encryption algorithms that are impervious to technological attacks; algorithms which make it so that if your message is intercepted it would still take an attacker decades, or even centuries, to decrypt it by force.  Apple, the owner of one of the most popular cellular devices on the planet, has devised their own encryption algorithm to protect the messages of their consumers.  Many of their products run iOS and offer the iMessage service which allows iOS users to freely send text and picture messages to other users who have iMessage services.  Apple claims that these iMessages are secure and that not even they could decrypt an intercepted iMessage.  From the information that Apple has made public we can see that the entire process of sending an iMessage utilizes a complex amalgamation of cutting-edge cryptographic techniques.  It is the purpose of this paper to explore their iMessage encryption algorithm, especially algorithms such as Transport Layer Security, Elliptic Curve Digital Signature, and the hardware that Apple utilizes, to better understand how Apple achieves this security.
+Every day millions of text messages are sent around the world.  The senders of
+these messages would like to think that the messages they send will be read
+only by their intended recipient but just how secure are these messages really?
+The speed and power of the modern computer has birthed a new necessity for
+powerful encryption algorithms that are impervious to technological attacks---
+algorithms which make it so that if your message is intercepted it would still
+take an attacker decades, or even centuries, to decrypt it by force.  Apple,
+the manufacturer of one of the most popular cellular devices on the planet, has
+devised their own cryptographic system to protect the messages of their
+consumers.  Many of their products run iOS and offer the iMessage service which
+allows iOS users to freely send text and picture messages to other users who
+use iMessage services.  Apple claims that these iMessages are secure and that
+not even they could decrypt an intercepted iMessage.  From the information that
+Apple has made public, we can see that the entire process of sending an iMessage
+utilizes a complex amalgamation of cutting-edge cryptographic techniques.  It
+is the purpose of this paper to explore the cryptographic algorithm used in
+iMessage, especially Transport Layer Security and the Elliptic Curve Digital
+Signature Algorithm, as well the hardware that facilitates their use in order
+to better understand how Apple achieves a high level security of their users.
