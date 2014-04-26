@@ -81,12 +81,13 @@ iOS erases keys.
 
 Effaceable Storage is a single small portion of the device's NAND flash storage
 used specifically for the storage of cryptographic keys. When the device is
-powered off, keys in this segment of storage are wiped. This means that even if
-an attacker has physical access to the device after it's been turned off, the
-data on the device would be undecipherable\cite{garfinkel}. This mechanism
-provides great security for end users in case their device falls into the hands
-of an attacker. It also has the effect, as Garfinkel notes, of empowering
-criminals. The data stored on iOS devices is so secure that even forensic
-investigators trying to access data on a suspect's device often have no way to
-access it outside of brute-forcing keys, which, for AES-256, is practically
-impossible.
+powered off, keys in this segment of storage are wiped. The same process occurs
+if users request a remote wipe of their device. This means that even if
+an attacker has physical access to the device after it's been turned off or
+wiped, the data on the device would be undecipherable\cite{garfinkel}. This
+mechanism provides great security for end users in case their device falls into
+the hands of an attacker. It also has the effect, as Garfinkel notes, of
+empowering criminals. The data stored on iOS devices is so secure that even
+forensic investigators trying to access data on a suspect's device often have
+no way to access it outside of brute-forcing keys, which, for AES-256, is
+practically impossible.
