@@ -50,12 +50,13 @@ encryption algorithm.  Apple uses AES in CTR mode which means that each block
 is fed a number, or initialization vector, at encryption time\cite{apple}\cite{trappe}.  
 The next block
 to be encrypted is fed the initialization vector plus one.  This continues with
-every block being fed the incremented counter used in the previous block.  The
-following graphic demonstrates the CTR mode encryption.
+every block being fed the incremented counter used in the previous block.
 
-\begin{center}
-    \includegraphics[width=0.75\textwidth]{ctr.jpg}
-\end{center}
+\begin{figure}[h!]
+    \caption{The Counter (CTR) mode of operation\cite{ctr}}
+    \centering
+        \includegraphics[width=0.75\textwidth]{ctr.jpg}
+\end{figure}
 
 Interestingly, the data that is encrypted is not actually the plaintext but it
 is the counter and the key.  The output of this encryption is then ``added'' to
@@ -68,14 +69,14 @@ key used for AES so both the encrypted message and the key must be sent to the
 receiver.  This poses another security risk because any unintended recipient
 could simply use the key to decrypt the message (AES is symmetric after all).
 The conclusion is that the key must also be protected through encryption.
-Apple implements this secondary layer of encryption through RSA.  One of the
+Apple implements this secondary layer of encryption through RSA\cite{apple}.  One of the
 two public keys pushed down to the sender's device earlier was the receiver's
 public RSA key.  The sender's device now clumps the encrypted message, the AES
 key, and any necessary padding into one big block which is then encrypted with
-RSA.  This chunk of data is now secure to send\ldots almost.  The receiver has
+RSA\cite{quarkslab}.  This chunk of data is now secure to send\ldots almost.  The receiver has
 no way of verifying who actually sent the data it is receiving!  Now Apple uses
 ECDSA, also discussed earlier, and the public ECDSA key of the receiver to sign
-the RSA encrypted data with the sender's information.  The resultant block, the
+the RSA encrypted data with the sender's information\cite{apple}.  The resultant block, the
 RSA encrypted data and the ECDSA signature, are now safe to push to APNs.  The
 next time the receiver contacts APNs it will get the encrypted message pushed
 down to it and will begin a process much like opening a box to find another box
