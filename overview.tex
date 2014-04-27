@@ -31,23 +31,24 @@ sender's device to send a message to a third-party, a malicious receiver who,
 upon reading the message, then forwards the information along to the APNS
 server so it looks like there was no interruption of communication.  Such an
 attack is known as a Man-in-the-middle attack due to the malicious third party
-in the middle of the communication.  To ensure a secure communication between
+in the middle of the communication\cite{quarkslab}.  To ensure a secure communication between
 the device and APNs, communication is encrypted using the TLS algorithm
-discussed earlier.  Once the connection has been established, APNS pushes all
+discussed earlier\cite{apple}.  Once the connection has been established, APNS pushes all
 the public keys of the recipient devices down to the sender device.  Now the
 sender device has all the information it needs to start encrypting the message.
 
 The message itself is encrypted using the Advanced Encryption Standard
 algorithm, or AES, in Counter (CTR) mode.  AES was standardized in 2001 for the
 specific purpose of encrypting electronic data and, in contrast to RSA and
-ECDSA, is part of the category of symmetric key cryptography.  This means that
+ECDSA, is part of the category of symmetric key cryptography\cite{trappe}.  This means that
 the same key can be used to both encrypt and decrypt the message.  One caveat
 of AES is that it is a block cipher and so can only be used to encrypt blocks
 of, in this case, 128-bits.  With each character being represented with 8-bits
 this means AES can be used to encrypt only 16 characters at a time!  A mode of
 operation is used to securely encrypt many blocks of data using a single block
 encryption algorithm.  Apple uses AES in CTR mode which means that each block
-is fed a number, or initialization vector, at encryption time.  The next block
+is fed a number, or initialization vector, at encryption time\cite{apple}\cite{trappe}.  
+The next block
 to be encrypted is fed the initialization vector plus one.  This continues with
 every block being fed the incremented counter used in the previous block.  The
 following graphic demonstrates the CTR mode encryption.
