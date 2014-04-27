@@ -24,12 +24,11 @@ extracts the server's public key that was attached to the certification and comp
 the number using the server's public key (normally using RSA) and sends the
 message to the server.  Now both the server and client have the two inital random numbers($r_{C}$ and $r_{S}$) and the pre-master secret($s_{pm}$).  With this information, both the client and server can calculate master secret or symmetric key, by concatination of 
 
-\[ MD5(s_{pm}||SHA-1(A||s_{pm}||r_{C}||r_{S})) \]
-\[ MD5(s_{pm}||SHA-1(BB||s_{pm}||r_{C}||r_{S})) \]
-\[ MD5(s_{pm}||SHA-1(CCC||s_{pm}||r_{C}||r_{S})) \] 
+\[ MD5(s_{pm}||\text{SHA-1}(A||s_{pm}||r_{C}||r_{S})) \]
+\[ MD5(s_{pm}||\text{SHA-1}(BB||s_{pm}||r_{C}||r_{S})) \]
+\[ MD5(s_{pm}||\text{SHA-1}(CCC||s_{pm}||r_{C}||r_{S})) \] 
 
-Where A, BB, CCC added for padding\cite[p. 282]{Trappe}.  Before security is
-
+Where A, BB, CCC added for padding\cite[p. 282]{trappe}.  Before security is
 concluded, one last step is taken.  Each side sends a MAC or HMAC (message
 authentication code or hash message authentication code) using the random
 numbers sent and the symmetric key.  MAC and HMAC are hash functions that
