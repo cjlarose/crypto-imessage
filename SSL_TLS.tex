@@ -10,7 +10,7 @@ cryptography through a process of key exchanges, client/server authentication,
 and algorithm/cipher agreements.
 
 The process of establishing a secure connection between client and server is
-done through two main components, the record protocol and the handshake protocol.  The process begins with the handshake protocol, the client creates a``Client Hello'' message that is sent to the server with a list of client supported ciphers and algorithms for hashing and comprssion.  As well as a randomly generated number, label it $r_{C}$, that will be used later in generating the symmetric key.  After the server receives the Client Hello message, it begins
+done through two main components, the record protocol and the handshake protocol.  The process begins with the handshake protocol(Illistrated in figure \ref{Handshake}), the client creates a``Client Hello'' message that is sent to the server with a list of client supported ciphers and algorithms for hashing and comprssion.  As well as a randomly generated number, label it $r_{C}$, that will be used later in generating the symmetric key.  After the server receives the Client Hello message, it begins
 comprising the ``Server Hello'' message.  This message includes a selected cipher to be used on the next message, another randomly generated number, labled $r_{S}$ and a
 certification.  The certification is a way of authenticating the server to the
 client or vice versa and is normally issued by a certification authority (CA).
@@ -41,7 +41,7 @@ communication is concluded and the two can begin sending information
 securely using the record protocol\cite[p. 58]{rescorla}.
 
 \begin{figure}[h!]
-    \caption{Overview of the SSL or TLS handshake\cite{ibm}}
+    \caption{Overview of the SSL or TLS handshake\cite{ibm}} \label{Handshake}
     \centering
         \includegraphics[width=0.75\textwidth]{SSL_TLS_Diagram.png}
 \end{figure}
