@@ -34,26 +34,20 @@
 
 \maketitle
 
-\section*{Introduction} % asterisk causes section to be unnumbered
+\section*{Introduction}\label{sec:intro} % asterisk causes section to be unnumbered
 \inputfile{intro.tex}
 
-\section{Apple iMessage Encryption Protocol}
-\inputfile{overview.tex}
-
-\section{Hardware Support for Cryptography}
+\section{Hardware Support for Cryptography}\label{sec:hardward}
 \inputfile{hardware.tex}
 
-\section{Elliptic Curve Digital Signature Algorithm (ECDSA)}
+\section{Elliptic Curve Digital Signature Algorithm (ECDSA)}\label{sec:ecdsa}
 \inputfile{ecdsa.tex}
 
-\section{Secure Sockets Layer (SSL) \& Transport Layer Security (TLS)}
+\section{Secure Sockets Layer (SSL) \& Transport Layer Security (TLS)}\label{sec:tls}
 \inputfile{SSL_TLS.tex}
 
-% \section{Mathematics}\label{sec:math}
-% \inputfile{math.tex}
-
-% \section{Other Stuff}
-% \inputfile{other.tex}
+\section{Apple iMessage Encryption Protocol}\label{sec:overview}
+\inputfile{overview.tex}
 
 \newpage
 \inputfile{bib.tex}
