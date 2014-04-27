@@ -24,7 +24,7 @@ and finally describe the actual ECDSA algorithm.
 
 Elliptic curves are complicated geometric and algebraic objects,
 whose full explanation lies outside the scope of this paper.
-The purpose of this section is to prove a vague understanding
+The purpose of this section is to provide a vague understanding
 of why elliptic curve cryptography might be secure, so that the reader
 can have a top level understanding of how the iMessage protocol
 works, and is secure.\\
@@ -77,9 +77,30 @@ The following algorithm serves as addition on elliptic curve points.
 The existence of such a point $R$ is given by the properties of elliptic curves,
 so this operation is well defined.
 
-As mentioned previously, there is an $\infty$ point that serves as the additive identity.
+\begin{example}
+
+    We will show how to compute $P + Q$ on the given elliptic curve in Figure \ref{adding}.
+
+    We start by drawing the line through both $P$ and $Q$.
+
+    The intersection of this line is point $R$.  We then reflect $R$ across the
+    $x$-axis, resulting in $P + Q$.
+
+    \begin{figure}[h!]
+        \caption{Adding points $P$ and $Q$ on an elliptic curve \cite{kakaroto}}\label{adding}
+        \centering
+        \includegraphics[width=0.5\textwidth]{elliptic_curve_addition.png}
+    \end{figure}
+
+\end{example}
+
+
+
+
 
 \begin{example}
+As mentioned previously, there is an $\infty$ point that serves as the additive identity.
+
 Consider $(x,y) + \infty$.
 
 The line through $(x,y)$ and $\infty$ will be completely vertical.
@@ -142,7 +163,7 @@ Alice starts with a public key $d_A \gets$ a random integer in $[1, n-1]$
 and a public point on $C$, called $Q_A$.
 
 \begin{algorithm}
-    \begin{algorithmic}
+    \begin{algorithmic}[1]
         \Procedure{ECDSA}{$M$}
         \State $e \gets \text{HASH}(m)$
         \State Suppose $n$, when represented as an unsigned binary number, has $L_n$ bits.
@@ -151,11 +172,11 @@ and a public point on $C$, called $Q_A$.
         \State $(x,y) \gets k \times G$
         \State $r \gets x \mod n$
         \If {$r == 0$}
-        \State Go to step 3
+        \State Go to 4
         \EndIf
         \State $s \gets k^{-1}(z + rd_A) \mod n$
         \If {$s == 0$}
-        \State Go to step 3
+        \State Go to 4
         \EndIf
         \State \textbf{return} $(r, s)$
         \EndProcedure
@@ -163,5 +184,32 @@ and a public point on $C$, called $Q_A$.
     \caption{Signing a message with ECDSA}
 \end{algorithm}
 
+
+\subsubsection{Verifying a Message}
+
+Alice starts with a public key $d_A \gets$ a random integer in $[1, n-1]$
+and a public point on $C$, called $Q_A$.
+
+\begin{algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{ECDSA}{$M$}
+        \State $e \gets \text{HASH}(m)$
+        \State Suppose $n$, when represented as an unsigned binary number, has $L_n$ bits.
+        Then $z \gets$ the $L_n$ leftmost bits of $e$.
+        \State $k \gets$ a random integer in $[1, n-1]$.
+        \State $(x,y) \gets k \times G$
+        \State $r \gets x \mod n$
+        \If {$r == 0$}
+        \State Go to 4
+        \EndIf
+        \State $s \gets k^{-1}(z + rd_A) \mod n$
+        \If {$s == 0$}
+        \State Go to 4
+        \EndIf
+        \State \textbf{return} $(r, s)$
+        \EndProcedure
+    \end{algorithmic}
+    \caption{Signing a message with ECDSA}
+\end{algorithm}
 
 
