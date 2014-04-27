@@ -1,10 +1,10 @@
 The first step of encryption begins at the sender's iOS device when the device
-generates two key pairs.  The first is a 1280-bit key used for encrypting the
+generates two key pairs\cite{apple}.  The first is a 1280-bit key used for encrypting the
 message itself using an RSA encryption algorithm.  The second key is a 256-bit
 ECDSA key used for signing the message so the receiver can verify the message
 was sent from the correct device.  Both RSA and ECDSA 
 belong to a class of encryption algorithms known as public-key encryption or
-also known as asymmetric cryptography. In a public-key cryptosystem, two pairs
+also known as asymmetric cryptography\cite{trappe}. In a public-key cryptosystem, two pairs
 of keys are generated.  One of the keys is known as the public key.  This key
 is used for encrypting the plaintext, or the actual message itself, but it does
 so in such a way that it is effectively impossible to use the public key to
@@ -18,13 +18,13 @@ generated, the device stores the private keys locally, in a secure area of the
 device.  It then sends the two public keys to the Apple Push Notification
 Service Service (APNS) where they are associated with the device's phone number.
 The public keys of any receiver can then be pushed down to any device
-requesting to send an iMessage to another iOS device.
+requesting to send an iMessage to another iOS device\cite{apple}.
 
 The second step is actually sending the iMessage which begins by adding
 recipients of the iMessage.  The sender's iOS device finds the phone numbers of
 the recipients in its local Contact list and performs a request against the
 APNS server, asking for the public keys associated with the phone numbers of
-the recipients.  This contact with the server is the first opportunity for
+the recipients\cite{apple}.  This contact with the server is the first opportunity for
 attack that we see so far.  Both the server and the sender's device need to
 know that their communication is uninterrupted.  It is possible for the
 sender's device to send a message to a third-party, a malicious receiver who,
