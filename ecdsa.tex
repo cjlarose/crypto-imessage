@@ -1,4 +1,4 @@
-Cryptographic signatures are used to prove the validitiy of an ecrypted message.
+Cryptographic signatures are used to prove the validitiy of an encrypted message.
 Suppose Alice wants to send an encrypted message to Bob, but Eve wants to intercept
 or obfuscate such a message.  Alice could use an ecryption algorithm such as AES,
 then send the message to Bob.  However, it is entirely possible that Eve intercepts
@@ -10,16 +10,15 @@ would benefit form using some form of digitial signature method.  Digital signat
 are used to prove the authenticity and validity of a message.  In general, this is done by
 signing the hash of a message, and sending this signed hash together with and encrypted message.
 The hash of the message ensures that the message has not been
-tampred with.  The fact that the hash is signed ensures that the the message is in fact coming
+tampred with.  The fact that the hash is signed ensures that the message is in fact coming
 from the person who signed the message, and no one else.
 
 DSA, the Digital Signature Algorithm, is a common method of signing messages.
-The structure of DSA has been augemented to take advantage of the
+The structure of DSA has been augmented to take advantage of the
 computationally difficult aspect of pointwise addition and scalar multiplication
 on elliptic curves.  In this section, we will explain the multiplication
-and additiona for elliptic curves, why this would be difficult to reverse,
+and addition for elliptic curves, why this would be difficult to reverse,
 and finally describe the actual ECDSA algorithm.
-
 
 \subsection{Elliptic Curve Theory}
 
@@ -45,10 +44,10 @@ The elliptic curves with cryptographic applications are ones where $K$ is the in
 mod a prime $p$, denoted $\mathbb{F}_p$.
 
 \begin{example}
-Consider the elliptic curve $E = y^2 = x^3+2x-1 \mod 5$.
+    Consider the elliptic curve $E = y^2 = x^3+2x-1 \mod 5$.
 
-Using the set notation, we can describe this curve as
-$E = \{(0 ,2 ),(0,3),(2,1),(2 ,4 ),(4,1),(4,4), \infty\}$.
+    Using the set notation, we can describe this curve as
+    $E = \{(0 ,2 ),(0,3),(2,1),(2 ,4 ),(4,1),(4,4), \infty\}$.
 \end{example}
 
 
@@ -60,30 +59,37 @@ Suppose we want to add points $P_1$ and $P_2$.
 The following algorithm serves as addition on elliptic curve points.
 \begin{algorithm}
     \begin{algorithmic}
-         \Procedure{(+)}{$P_1,P_2$}
-         \If{$P_1 == P_2$}
-         \State $L \gets$ the line tangent to $E$ intersecting $P_1$
-         \Else
-         \State $L \gets$ the line through both $P_1$ and $P_2$
-         \EndIf
-         \State $R \gets$ the intersection of $L$ and $E$, $R \neq P_1, P_2$
-         \State Suppose $R = (r_x, r_y)$
-         \State \textbf{return} $(r_x, -r_y)$
-         \EndProcedure
-     \end{algorithmic}
-     \caption{Adding $P_1$ and $P_2$ on an elliptic curve $E$}
-     \label{euclid}
- \end{algorithm}
+        \Procedure{(+)}{$P_1,P_2$}
+        \If{$P_1 == P_2$}
+        \State $L \gets$ the line tangent to $E$ intersecting $P_1$
+        \Else
+        \State $L \gets$ the line through both $P_1$ and $P_2$
+        \EndIf
+        \State $R \gets$ the intersection of $L$ and $E$, $R \neq P_1, P_2$
+        \State Suppose $R = (r_x, r_y)$
+        \State \textbf{return} $(r_x, -r_y)$
+        \EndProcedure
+    \end{algorithmic}
+    \caption{Adding $P_1$ and $P_2$ on an elliptic curve $E$}
+    \label{euclid}
+\end{algorithm}
 
 The existence of such a point $R$ is given by the properties of elliptic curves,
 so this operation is well defined.
 
 As mentioned previously, there is an $\infty$ point that serves as the additive identity.
 
+\begin{example}
 Consider $(x,y) + \infty$.
+
 The line through $(x,y)$ and $\infty$ will be completely vertical.
+
 So the point of intersection (labeled $R$ in the algorithm) will be $(x,-y)$.
+
 Then, following the algorithm, we get that $(x,y) + \infty = (x,y)$.
+
+Thus $\infty$ is the additive identity for an elliptic curve.
+\end{example}
 
 
 
@@ -92,7 +98,7 @@ Then, following the algorithm, we get that $(x,y) + \infty = (x,y)$.
 
 \subsubsection{The classic Discrete Log Problem}
 A variant of the discrete logarithm problem is the foundation of elliptic
-curve cryptography.  The classic discrete logarithm problem is a follows:\\
+curve cryptography.  The classic discrete logarithm problem is as follows:\\
 
 Consider an arbitrary group $(G, *)$ and suppose $b,g \in G$.
 
@@ -100,7 +106,7 @@ The discrete logarithm problem is to find an integer $k$
 such that $b^k = g$.
 
 Finding such a $k$ is computationally difficult; yet
-With $k$ known, it is very simple to compute $b^k$.
+with $k$ known, it is very simple to compute $b^k$.
 
 Since exponentiation is the easy part of an invertible function, with
 the logarithm being difficult to compute, this problem has cryptographic
@@ -121,3 +127,41 @@ The discrete logarithm problem for elliptic curves is the foundation of
 elliptic curve cryptography.
 
 \subsection{DSA with Elliptic Curves}
+
+Suppose Alice want to send a message to Bob, that has been signed with ECDSA.
+First, the two of them will need to agree on an elliptic curve equation, call it $C$.
+Additionally, they must agree on an element, call it $G$, that generates $C$ under
+point-wise addition.  Finally, the order of the element $G$ (the number of times we must add
+$G$ to itself before we generate the entire group) must be known. In order for ECDSA to be
+secure, we want $n$ to be large.
+
+
+\subsubsection{Signing a Message}
+
+Alice starts with a public key $d_A \gets$ a random integer in $[1, n-1]$
+and a public point on $C$, called $Q_A$.
+
+\begin{algorithm}
+    \begin{algorithmic}
+        \Procedure{ECDSA}{$M$}
+        \State $e \gets \text{HASH}(m)$
+        \State Suppose $n$, when represented as an unsigned binary number, has $L_n$ bits.
+        Then $z \gets$ the $L_n$ leftmost bits of $e$.
+        \State $k \gets$ a random integer in $[1, n-1]$.
+        \State $(x,y) \gets k \times G$
+        \State $r \gets x \mod n$
+        \If {$r == 0$}
+        \State Go to step 3
+        \EndIf
+        \State $s \gets k^{-1}(z + rd_A) \mod n$
+        \If {$s == 0$}
+        \State Go to step 3
+        \EndIf
+        \State \textbf{return} $(r, s)$
+        \EndProcedure
+    \end{algorithmic}
+    \caption{Signing a message with ECDSA}
+\end{algorithm}
+
+
+
