@@ -1,4 +1,9 @@
-NEW!  A useful [link][3] I found.  
+On writeLatex the account is
+
+name: laxchief@email.arizona.edu
+pswd: crypto42
+
+A useful [link][3] I found.  
 
 
 Topics
